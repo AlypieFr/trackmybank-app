@@ -30,6 +30,7 @@ sudo npm install -g cordova
 
 ```bash
 curl -s "https://get.sdkman.io" | bash
+source "$HOME/.sdkman/bin/sdkman-init.sh"
 ```
 
 ### 4. Configure bash
@@ -89,9 +90,10 @@ Debugging
 
 You can run this app in an emulator on your computer (for debugging if you change the app).
 
-1. You all previous step until step 7 included.
+1. You all previous step until step 7 included.  
+2. Install qemu-kvmv and add your user to the kvm group.
 2. Open Android studio and create an empty project (we will not use it).  
-3. Go to Tools -> AVD Manager, and create a new virtual device
+3. Go to Tools -> AVD Manager, and create a new virtual device.
 
 ### 4. Build the app
 
