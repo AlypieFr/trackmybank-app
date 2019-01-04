@@ -1,0 +1,129 @@
+@font-face {
+    font-family: signatra;
+    src: url(../fonts/Signatra.otf);
+}
+
+body {
+    background: #200444;
+    margin-top: 60px;
+}
+
+h1, label {
+    color: #fff;
+}
+
+h1 {
+    position: fixed;
+    width: 100%;
+    display: block;
+    height: 60px;
+    background: #000 url("../img/trackmybank.png") no-repeat 5px 5px;
+    background-size: 50px 50px;
+    font-family: signatra;
+    font-size: 30pt;
+    line-height: 60px;
+    margin-top: -60px;
+    margin-bottom: 0;
+    text-align: center;
+    z-index: 1000;
+}
+
+form {
+    padding: 0 20px 20px;
+}
+
+form label, form input, form select {
+    width: 100%;
+    font-size: 18pt;
+}
+
+form label {
+    margin-top: 20px;
+}
+
+form label.first {
+    margin-top: 0;
+}
+
+form select {
+    height: 40px;
+}
+
+form button {
+    margin-top: 30px;
+    font-size: 15pt;
+    margin-right: 10px;
+    padding: 5px 10px;
+}
+
+button#send {
+    width: 100px;
+}
+
+button#add-subtr, button#del-subtr {
+    width: 80px;
+    text-align: center;
+}
+
+form .newline button {
+    margin-top: 15px;
+    margin-left: 114px;
+}
+
+#login {
+    height: calc(100% - 110px);
+    padding-top: calc(50% - 90px);
+    padding-bottom: 50%;
+}
+
+#login form input, #login form label {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    text-align: center;
+}
+
+#login form button {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    text-align: center;
+}
+
+#notify {
+    font-size: 14pt;
+    font-weight: bold;
+    color: #000;
+    padding: 5px;
+}
+
+#notify.error {
+    background: #ff413c;
+}
+
+#notify.success {
+    background: #5cb85c;
+}
+
+#notify.warn {
+    background: #bb842e;
+}
+
+#notify {
+    animation-duration: 0.3s;
+}
+
+div.transaction {
+    margin-top: 10px;
+    padding-bottom: 10px;
+}
+
+div.transaction:first-of-type {
+    margin-top: 0;
+}
+
+div.date-div {
+    position: relative;
+}

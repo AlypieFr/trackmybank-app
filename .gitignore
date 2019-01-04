@@ -1,0 +1,8 @@
+platforms/android/.gradle
+platforms/android/CordovaLib/build
+platforms/android/app/build
+platforms/android/release-signing.properties
+platforms/android/app/src/main/assets/www
+www/js/credentials.js
+www/js/credentials.js.*
+!www/js/credentials.js.example
