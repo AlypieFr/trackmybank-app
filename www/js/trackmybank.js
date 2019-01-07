@@ -42,6 +42,14 @@ trackmybank.init = function() {
     });
     $("#show-addition").on("click touch", trackmybank.show_addition);
     $(document).on("click touch", "#goback", trackmybank.goback);
+    $(document).on("click touch", "table.addition tr", function() {
+        if ($(this).hasClass("selected")) {
+            $(this).removeClass("selected");
+        }
+        else {
+            $(this).addClass("selected");
+        }
+    });
 };
 
 trackmybank.init_special_fields = function () {
@@ -206,7 +214,7 @@ trackmybank.getStringAmount = function(amount) {
             comma = number.length;
         }
     }
-    return parseFloat(number).toPrecision(comma + 2);
+    return parseFloat(number).toPrecision(comma + (comma >= 2 ? 2 : 1));
 };
 
 trackmybank.getTotal = function(nbSubTr) {
