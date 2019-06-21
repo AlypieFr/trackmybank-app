@@ -1,119 +1,102 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>TrackMyBank! Web app</title>
 
-    http://www.apache.org/licenses/LICENSE-2.0
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-datepicker3.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/animate.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/trackmybank.css"/>
+    <script type="application/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script type="application/javascript" src="js/moment-with-locales.min.js"></script>
+    <script type="application/javascript" src="js/bootstrap.min.js"></script>
+    <script type="application/javascript" src="js/bootstrap-datepicker.min.js"></script>
+    <script type="application/javascript" src="js/bootstrap-datepicker.fr.min.js"></script>
+    <script type="application/javascript" src="js/credentials.js"></script>
+    <script type="application/javascript" src="js/trackmybank.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body onload="trackmybank.init();">
 
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
-<html>
-    <head>
-        <!--
-        Customize this policy to fit your own app's needs. For more guidance, see:
-            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
-        Some notes:
-            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-                * Enable inline JS: add 'unsafe-inline' to default-src
-        -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;connect-src *;">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <!--<link rel="stylesheet" type="text/css" href="css/index.css">-->
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
-        <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css"/>
-        <link rel="stylesheet" type="text/css" href="css/bootstrap-datepicker3.min.css"/>
-        <link rel="stylesheet" type="text/css" href="css/animate.min.css"/>
-        <link rel="stylesheet" type="text/css" href="css/trackmybank.css"/>
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>Track my bank!</h1>
+<h1>Track my bank!</h1>
 
-            <div class="loading" style="display: none">
-                <div class="lds-facebook">
-                    <div></div>
-                    <div></div>
-                    <div></div>
+<div class="loading" style="display: none">
+    <div class="lds-facebook">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+<div id="notify" style="display: none;">
+
+</div>
+
+<div id="login">
+    <form action="#" id="login-form">
+        <label for="password">Pin</label>
+        <div id="container">
+            <input id="password" type="password" pattern="[0-9]{4}" maxlength="4" inputmode="numeric"/>
+            <ul id="keyboard">
+                <li class="letter">7</li>
+                <li class="letter">8</li>
+                <li class="letter">9</li>
+                <li class="letter clearl">4</li>
+                <li class="letter">5</li>
+                <li class="letter">6</li>
+
+                <li class="letter clearl">1</li>
+                <li class="letter ">2</li>
+                <li class="letter">3</li>
+                <li class="letter clearl">0</li>
+                <li id="dologin" class="return">Login</li>
+            </ul>
+        </div>
+    </form>
+</div>
+
+<div id="logged" style="display: none;">
+    <form action="#" id="add-form">
+        <div class="date-div">
+            <label for="month" class="i-month">Mois</label>
+            <select id="month" class="select2">
+            </select>
+            <label for="date_t">Date</label>
+            <input id="date_t" class="datepicker" autocomplete="off"/>
+        </div>
+        <div id="transactions">
+            <div class="transaction">
+                <hr width="50%">
+                <label class="first">Desc</label>
+                <input class="description" type="text" maxlength="255"/>
+                <label>€</label>
+                <div class="total" style="display: none">
+                    <input class="money total-amount" type="number" step="0.01" readonly="readonly"/>
+                    <p class="plus"> + </p>
                 </div>
-            </div>
-
-            <div id="notify" style="display: none;">
-
-            </div>
-
-            <div id="login">
-                <form action="#" id="login-form">
-                    <label for="password">Pin</label>
-                    <input id="password" type="password" pattern="[0-9]{4}" maxlength="4" inputmode="numeric"/>
-                    <button type="button" id="dologin">Se connecter</button>
-                </form>
-            </div>
-
-            <div id="logged" style="display: none;">
-                <form action="#" id="add-form">
-                    <div class="date-div">
-                        <label for="month" class="i-month">Mois</label>
-                        <select id="month" class="select2">
-                        </select>
-                        <label for="date_t">Date</label>
-                        <input id="date_t" class="datepicker" autocomplete="off"/>
-                    </div>
-                    <div id="transactions">
-                        <div class="transaction">
-                            <hr width="50%">
-                            <label class="first">Desc</label>
-                            <input class="description" type="text" maxlength="255"/>
-                            <label>€</label>
-                            <div class="total" style="display: none">
-                                <input class="money total-amount" type="number" step="0.01" readonly="readonly"/>
-                                <p class="plus"> + </p>
-                            </div>
-                            <input class="money amount" type="number" step="0.01"/>
-                            <input type="button" value="+" class="addition"/>
-                            <label>Cat</label>
-                            <select class="category select2">
-                                <option></option>
-                            </select>
-                        </div>
-                    </div>
-                    <button type="button" id="send">Envoyer</button>
-                    <button type="button" id="add-subtr">+ item</button>
-                    <button type="button" id="reset">Annuler</button>
-                    <button type="button" class="last" id="show-addition">=</button>
-                    <div class="newline">
-                        <button type="button" id="del-subtr" style="display: none;">- item</button>
-                    </div>
-                </form>
-            </div>
-
-            <div id="addition" style="display: none;">
-
+                <input class="money amount" type="number" step="0.01"/>
+                <input type="button" value="+" class="addition"/>
+                <label>Cat</label>
+                <select class="category select2">
+                    <option></option>
+                </select>
             </div>
         </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        
-        <script type="application/javascript" src="js/jquery-3.2.1.min.js"></script>
-        <script type="application/javascript" src="js/moment-with-locales.min.js"></script>
-        <script type="application/javascript" src="js/bootstrap.min.js"></script>
-        <script type="application/javascript" src="js/bootstrap-datepicker.min.js"></script>
-        <script type="application/javascript" src="js/bootstrap-datepicker.fr.min.js"></script>
-        <script type="application/javascript" src="js/credentials.js"></script>
-        <script type="application/javascript" src="js/trackmybank.js"></script>
-    </body>
+        <button type="button" id="send">Envoyer</button>
+        <button type="button" id="add-subtr">+ item</button>
+        <button type="button" id="reset">Annuler</button>
+        <button type="button" class="last" id="show-addition">=</button>
+        <div class="newline">
+            <button type="button" id="del-subtr" style="display: none;">- item</button>
+        </div>
+    </form>
+</div>
+
+<div id="addition" style="display: none;">
+
+</div>
+
+</body>
 </html>
